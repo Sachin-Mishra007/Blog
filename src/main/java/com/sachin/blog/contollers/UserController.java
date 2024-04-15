@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import com.sachin.blog.payloads.UserDto;
 import com.sachin.blog.services.UserServices;
 
 import jakarta.validation.Valid;
-
+@Validated
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -27,7 +28,7 @@ public class UserController {
         this.userServices=userServices;
     }
     @PostMapping
-    ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto)
+    ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)
     {
         return new ResponseEntity<>(userServices.createUser(userDto),HttpStatus.CREATED);
     }
@@ -39,7 +40,7 @@ public class UserController {
 
     }
     @PutMapping("/{id}")
-    ResponseEntity<UserDto> editUser(@Valid @RequestBody UserDto userDto ,@PathVariable int id)
+    ResponseEntity<UserDto> editUser(@RequestBody @Valid UserDto userDto ,@PathVariable int id)
     {
         UserDto updatedUserDto=userServices.updateUser(userDto, id);
         return ResponseEntity.ok(updatedUserDto);

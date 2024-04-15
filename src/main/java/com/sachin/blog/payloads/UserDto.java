@@ -1,15 +1,19 @@
 package com.sachin.blog.payloads;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class UserDto {
     private int id;
-    @NotNull
+    @NotEmpty
+    @Size(min=3,message = "Name must be of minimum 3 characters!!!")
     private String name;
     @Email
     private String email;
-    @NotNull
+    @NotEmpty
+    @Size(min=8, max=16,message = "Password must be between 8 to 16 characters!!!")
     private String password;
     @NotNull
     private String about;
